@@ -1,0 +1,56 @@
+<mat-card>
+    <mat-card-title>Editar Orden</mat-card-title>
+    <form>
+        <mat-form-field>
+            <input matInput placeholder="Cliente"
+                [(ngModel)]="order.cliente" name="cliente">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Precio"
+                [(ngModel)]="order.cantidad_impuesto" name="cantidad_impuesto">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Categoria"
+                [(ngModel)]="order.estado_logica" name="estado_logica">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Precio"
+                [(ngModel)]="order.idcategoria" name="idcategoria">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Categoria"
+                [(ngModel)]="order.nro_pedido" name="nro_pedido">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Precio"
+                [(ngModel)]="order.fecha" name="fecha">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Categoria"
+                [(ngModel)]="order.total_impuesto" name="total_impuesto">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Categoria"
+                [(ngModel)]="order.total" name="total">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Precio"
+                [(ngModel)]="order.sub_total" name="sub_total">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Categoria"
+                [(ngModel)]="order.cantidad_total" name="cantidad_total">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Categoria"
+                [(ngModel)]="order.estado" name="estado">
+        </mat-form-field>
+    </form>
+    <button mat-raised-button (click)="updateOrder()" color="primary">
+        Atualizar
+    </button>
+    
+    <button mat-raised-button (click)="cancel()">
+        Cancelar
+    </button>
+</mat-card>
