@@ -1,61 +1,199 @@
 <div class="row">
-<div class="col-md-6">
-    <mat-card>
-        <mat-card-title>Nueva Orden</mat-card-title>
-        <form>
-            <mat-form-field>
-                <input matInput placeholder="Nº Pedido"
-                    [(ngModel)]="order.nro_pedido" name="nro_pedido">
-            </mat-form-field>
-
-            <mat-form-field>
-                <input matInput placeholder="Cliente"
-                    [(ngModel)]="order.cliente" name="cliente">
-            </mat-form-field>
-            
-            <mat-form-field>
-                <input matInput placeholder="estado"
-                    [(ngModel)]="order.estado" name="estado">
-            </mat-form-field>
-        </form>
-
-    </mat-card>
-</div>
-<br>
-<br>
-<div class="col-md-6">
-    <mat-card>
-        <form class="form-content">
-            <mat-form-field appearance="outline">
-                <input matInput placeholder="Producto"
-                    [(ngModel)]="idProducto" name="idProducto">
-            </mat-form-field>          
-            <button mat-raised-button (click)="buscarProducto()" color="primary">
-                Buscar
-            </button>
-
-            <mat-form-field appearance="outline">
-                <input matInput placeholder="Precio"
-                    [(ngModel)]="precioUnitario" name="precioUnitario" disabled>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-                <input matInput placeholder="cantidad"
-                    [(ngModel)]="cantidadProducto" name="cantidadProducto">
-            </mat-form-field>
- 
-        </form>    
-    </mat-card>
-    <br>
-    <br>
-<mat-card>
-    <button mat-raised-button (click)="createOrder()" color="primary">
-        Crear
-    </button>
+    <div class="col-md-6">
+        <mat-card>
+            <mat-card-title>Nueva Orden</mat-card-title>
+            <form>
+                <mat-form-field>
+                    <input matInput placeholder="Nº Pedido"
+                        [(ngModel)]="order.nro_pedido" name="nro_pedido">
+                </mat-form-field>
     
-    <button mat-raised-button (click)="cancel()">
-        Cancelar
-    </button>
-</mat-card>
-</div>
-</div>
+                <mat-form-field>
+                    <input matInput placeholder="Cliente"
+                        [(ngModel)]="order.cliente" name="cliente">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Fecha"
+                        [(ngModel)]="order.fecha" name="fecha">
+                </mat-form-field>
+
+                  <mat-form-field>
+                    <mat-label>Estado</mat-label>
+                    <mat-select  [(ngModel)]="order.estado">
+                        <mat-option *ngFor="let estado of estados" [value]="estado.value">
+                            {{estado.viewValue}}
+                          </mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+            </form>
+    
+        </mat-card>
+    </div>
+    <br>
+    <br>
+    <div class="col-md-6">
+        <mat-card>
+            <form class="form-content">
+                <mat-form-field appearance="outline">
+                    <input matInput placeholder="Producto"
+                        [(ngModel)]="idProducto" name="idProducto">
+                </mat-form-field>          
+                <button mat-raised-button (click)="buscarProducto()" color="primary">
+                    Buscar
+                </button>
+    
+                <mat-form-field appearance="outline">
+                    <input matInput placeholder="Nombre"
+                        [(ngModel)]="nombreProducto" name="nombreProducto" disabled >
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <input matInput placeholder="Precio"
+                        [(ngModel)]="precioUnitario" name="precioUnitario" disabled>
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline">
+                    <input matInput placeholder="cantidad"
+                        [(ngModel)]="cantidadProducto" name="cantidadProducto">
+                </mat-form-field>
+     
+            </form>    
+        </mat-card>
+        <br>
+        <br>
+        <mat-card>
+            <button mat-raised-button (click)="addRow()" color="primary">
+                Agregar Item
+            </button>
+        </mat-card>
+        <br>
+        <br>
+        <mat-card>
+            <table >
+                <thead>
+                <tr>
+                  <td  style="width: 104px;"><label>Nº</label></td>
+                  <td   style="width: 104px;"><label>Nombre</label></td>
+                  <td   style="width: 104px;"><label>Cantidad</label></td>
+                  <td   style="width: 104px;"><label>Precio Unitario</label></td>
+                  <td   style="width: 104px;"><label>Costo</label></td>
+                  <td   style="width: 104px;"><label>Actions</label></td>
+                </tr>
+                </thead> 
+                <tbody>
+                <tr *ngFor="let dynamic of dynamicArray; let i = index;">
+
+                  
+                  <td>
+                    {{dynamic.numero}}
+                  </td>
+                  <td>
+                    {{dynamic.nombre}}
+                  
+                  </td>
+                  <td>
+                    {{dynamic.cantidad}}             
+                </td>
+                  <td>
+                   $ {{dynamic.precioUnitario}}     
+                </td>
+                  <td>
+                   $ {{dynamic.costo}}  
+                </td>
+                <td >
+                    <a (click)="deleteRow(i)" class="delete">
+                        <i class="material-icons">
+                            delete
+                        </i>
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+        </mat-card>
+        <br>
+        <br>
+        <mat-card>
+            <table >
+                <tbody>
+                    <tr>
+                        <td  style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label>Subtotal</label></td>
+                        <td   style="width: 104px;"><label>{{subtotal}}</label></td>
+                      </tr>
+                      <tr>
+                        <td  style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label>Taxes</label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                      </tr>
+                      <tr>
+                        <td  style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label>Total City Tax</label></td>
+                        <td   style="width: 104px;"><label>{{totalCityTax}}</label></td>
+                      </tr>
+                      <tr>
+                        <td  style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label>Total Country Tax</label></td>
+                        <td   style="width: 104px;"><label>{{totalCountryTax}}</label></td>
+                      </tr>
+                      <tr>
+                        <td  style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label>Total State Tax</label></td>
+                        <td   style="width: 104px;"><label>{{totalStateTax}}</label></td>
+                      </tr>
+                      <tr>
+                        <td  style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label>Total Federal Tax</label></td>
+                        <td   style="width: 104px;"><label>{{totalFederalTax}}</label></td>
+                      </tr>
+                      <tr>
+                        <td  style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label>Total Taxes</label></td>
+                        <td   style="width: 104px;"><label>{{totalTaxes}}</label></td>
+                      </tr>
+                      <tr>
+                        <td  style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label></label></td>
+                        <td   style="width: 104px;"><label>Total</label></td>
+                        <td   style="width: 104px;"><label>{{total}}</label></td>
+                      </tr>
+                </tbody>
+              </table>
+        </mat-card>
+    <mat-card>
+        <button mat-raised-button (click)="createOrder()" color="primary">
+            Guardar
+        </button>
+        
+        <button mat-raised-button (click)="cancel()">
+            Cancelar
+        </button>
+    </mat-card>
+    <br>
+    <br> 
+ 
+    </div>
+    </div>
